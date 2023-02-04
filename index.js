@@ -1,11 +1,15 @@
-const button = document.querySelector(".btn");
-console.log(button.innerHTML);
+document.addEventListener("DOMContentLoaded", function () {
+  const fetchBtn = document.querySelector(".btn");
 
-button.addEventListener("click", async function (e) {
-  e.preventDefault();
-  rating = await fetch("http://127.0.0.1:3000");
-  data = await rating.json();
-  console.log(data);
+  fetchBtn.addEventListener("click", async () => {
+    const textInput = document.querySelector(".filmTitle").value;
+    console.log(textInput);
+    const response = await fetch(".netlify/functions/webScraper", {
+      method: "POST",
+      body: JSON.stringify({ title: textInput }),
+    });
+    const data = await response.json();
+    console.log(data);
+  });
 });
-
 // filmRating().then((res) => console.log(res));
